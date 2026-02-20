@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="JestingDart4369 — Portfolio, Projects, and Software Experiments" />
+  <title>JestingDart4369 | Portfolio</title>
+  <link rel="canonical" href="https://novaroma-homelab.uk/" />
+
+  <style>
+    /* ---------------------------
+       Theme tokens (auto light/dark)
+    --------------------------- */
+    :root{
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+
+      /* Accent */
+      --accent: #FF9500;
+      --accent2: #FFB84D;
+
+      /* Dark defaults */
+      --bg: #0c1020;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.62);
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+
+      /* Glass */
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.09);
+      --blur: 14px;
+
+      /* Status colors */
+      --ok: #31d0aa;
+      --bad: #ff5c7a;
+      --warn: #ffd15c;
+    }
+
+    /* Auto light theme */
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f6f7fb;
+        --text: rgba(0,0,0,.88);
+        --muted: rgba(0,0,0,.62);
+        --line: rgba(0,0,0,.12);
+        --shadow: 0 18px 60px rgba(0,0,0,.14);
+        --glass: rgba(255,255,255,.65);
+        --glass2: rgba(255,255,255,.78);
+      }
+    }
+
+    /* Manual theme override via [data-theme] */
+    html[data-theme="dark"]{
+      --bg:#0c1020;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.62);
+      --line:rgba(255,255,255,.12);
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --glass:rgba(255,255,255,.06);
+      --glass2:rgba(255,255,255,.09);
+    }
+    html[data-theme="light"]{
+      --bg:#f6f7fb;
+      --text:rgba(0,0,0,.88);
+      --muted:rgba(0,0,0,.62);
+      --line:rgba(0,0,0,.12);
+      --shadow:0 18px 60px rgba(0,0,0,.14);
+      --glass:rgba(255,255,255,.65);
+      --glass2:rgba(255,255,255,.78);
+    }
+
+    /* ---------------------------
+       Base layout
+    --------------------------- */
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background:
+        radial-gradient(900px 550px at 18% 5%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%),
+        radial-gradient(820px 520px at 85% 15%, color-mix(in srgb, var(--accent2) 14%, transparent), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+    /* Subtle particle canvas */
+    #particles{
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .65;
+    }
+
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass) 85%, transparent);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+
+    .nav{
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 210px;
+    }
+
+    .mark{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: var(--shadow);
+    }
+
+    .brand strong{
+      display:block;
+      font-weight: 800;
+      letter-spacing: .3px;
+      line-height: 1.1;
+    }
+    .brand span{
+      display:block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-family: var(--mono);
+    }
+
+    .navlinks{
+      display:flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .navlinks a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: .2s ease;
+    }
+    .navlinks a:hover{
+      border-color: var(--line);
+      background: color-mix(in srgb, var(--glass2) 70%, transparent);
+      text-decoration: none;
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .actions{
+      min-width: 210px;
+      display:flex;
+      justify-content: flex-end;
+      gap: 10px;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass) 72%, transparent);
+      font-size: 13px;
+      color: var(--text);
+      cursor:pointer;
+      transition: .2s ease;
+      user-select:none;
+    }
+    .btn:hover{
+      background: color-mix(in srgb, var(--glass2) 85%, transparent);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+    .btn.primary{
+      border: none;
+      color: white;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent2) 88%, white 12%));
+    }
+    .btn.primary:hover{ filter: brightness(1.05); }
+
+    .wrap{
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 56px 18px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+      .brand, .actions{ min-width: unset; }
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--glass) 82%, transparent);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main{
+      padding: 26px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-main:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 320px at 20% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%),
+        radial-gradient(600px 320px at 90% 25%, color-mix(in srgb, var(--accent2) 14%, transparent), transparent 60%);
+      opacity: .95;
+      pointer-events:none;
+    }
+    .hero-main > *{ position: relative; }
+
+    .kicker{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass2) 60%, transparent);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .dot{
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--ok) 22%, transparent);
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: 46px;
+      line-height: 1.05;
+      letter-spacing: -0.8px;
+    }
+    @media (max-width: 540px){
+      h1{ font-size: 36px; }
+    }
+
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 70ch;
+    }
+
+    .hero-cta{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    .hero-side{
+      padding: 18px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--glass2) 62%, transparent);
+      padding: 14px;
+    }
+    .stat strong{
+      display:block;
+      font-size: 14px;
+      letter-spacing: .2px;
+    }
+    .stat span{
+      display:block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .stack{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip{
+      padding: 7px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass2) 55%, transparent);
+      color: var(--muted);
+      font-size: 12px;
+      font-family: var(--mono);
+    }
+
+    section{ scroll-margin-top: 86px; margin-top: 34px; }
+    .section-title{
+      margin: 34px 0 10px;
+      display:flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
+    .section-title p{
+      margin:0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .project{
+      grid-column: span 6;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass) 82%, transparent);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      transition: .2s ease;
+      min-height: 184px;
+    }
+    .project:hover{
+      transform: translateY(-2px);
+      background: color-mix(in srgb, var(--glass2) 85%, transparent);
+    }
+    @media (max-width: 820px){
+      .project{ grid-column: span 12; }
+    }
+
+    .meta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      color: var(--muted);
+      font-size: 12px;
+      font-family: var(--mono);
+    }
+
+    .project h3{
+      margin: 10px 0 8px;
+      font-size: 18px;
+      letter-spacing: .1px;
+    }
+    .project p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 72ch;
+    }
+
+    .links{
+      margin-top: 14px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .linkbtn{
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass2) 62%, transparent);
+      text-decoration:none;
+    }
+    .linkbtn:hover{
+      background: color-mix(in srgb, var(--glass2) 86%, transparent);
+      text-decoration:none;
+    }
+    .linkbtn.ghost{
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .panel{
+      grid-column: span 12;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass) 82%, transparent);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    .panel h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .panel p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Latest commits list */
+    .timeline{
+      margin-top: 12px;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .item{
+      display:flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass2) 62%, transparent);
+      align-items:flex-start;
+    }
+    .item .icon{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent2) 88%, white 12%));
+      flex: 0 0 auto;
+    }
+    .item strong{
+      display:block;
+      font-size: 13px;
+    }
+    .item span{
+      display:block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+    .item .small{
+      display:block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+      font-family: var(--mono);
+    }
+
+    /* Repo stats row */
+    .stats-row{
+      margin-top: 10px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .statpill{
+      display:inline-flex;
+      align-items:center;
+      gap: 7px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--glass2) 55%, transparent);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .statpill b{
+      color: var(--text);
+      font-weight: 800;
+      font-family: var(--mono);
+    }
+
+    /* Health indicator */
+    .health{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .health-dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--warn);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--warn) 22%, transparent);
+    }
+    .health-dot.ok{
+      background: var(--ok);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--ok) 22%, transparent);
+    }
+    .health-dot.bad{
+      background: var(--bad);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--bad) 22%, transparent);
+    }
+
+    footer{
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .social{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .social a{
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--glass2) 62%, transparent);
+      color: var(--muted);
+      text-decoration:none;
+    }
+    .social a:hover{
+      color: var(--text);
+      background: color-mix(in srgb, var(--glass2) 88%, transparent);
+      text-decoration:none;
+    }
+
+    /* Small helper */
+    .subtle{ color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+
+<body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#home" aria-label="Go to top">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <strong>JestingDart4369</strong>
+          <span>novaroma-homelab.uk</span>
+        </div>
+      </a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#commits">Activity</a>
+        <a href="#services">Services</a>
+        <a href="https://github.com/JestingDart4369" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn" id="themeBtn" type="button" title="Toggle theme">Theme</button>
+        <a class="btn primary" href="https://api.novaroma-homelab.uk" target="_blank" rel="noreferrer">Open API</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="home">
+    <div class="hero">
+      <div class="card hero-main">
+        <div class="kicker">
+          <span class="pill"><span class="dot" aria-hidden="true"></span> portfolio • projects • experiments</span>
+          <span class="pill">API: api.novaroma-homelab.uk</span>
+          <span class="pill">GitHub: JestingDart4369</span>
+        </div>
+
+        <h1>
+          I build tools,<br />
+          APIs & small systems.
+        </h1>
+
+        <p class="lead">
+          This is my personal portfolio. I like building practical software: dashboards, automation,
+          and backend services. Below you’ll find my active repos, live GitHub activity, and service endpoints.
+        </p>
+
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">View projects</a>
+          <a class="btn" href="#commits">Latest activity</a>
+          <a class="btn" href="https://github.com/JestingDart4369" target="_blank" rel="noreferrer">GitHub profile</a>
+        </div>
+      </div>
+
+      <aside class="card hero-side" aria-label="Quick info">
+        <div class="stat">
+          <strong>Now</strong>
+          <span>Building and deploying small services under one domain (Cloudflare Tunnel + Docker).</span>
+        </div>
+
+        <div class="stat">
+          <strong>Stack</strong>
+          <span>Mostly self-hosted workflows and clean, maintainable code.</span>
+          <div class="stack">
+            <span class="chip">Docker</span>
+            <span class="chip">Cloudflare Tunnel</span>
+            <span class="chip">Python</span>
+            <span class="chip">JS/HTML</span>
+            <span class="chip">Linux</span>
+          </div>
+        </div>
+
+        <div class="stat">
+          <strong>API status</strong>
+          <span>Live indicator (client-side check):</span>
+          <div class="health" id="healthRow">
+            <div class="health-dot" id="healthDot" aria-hidden="true"></div>
+            <div id="healthText">Checking…</div>
+          </div>
+          <div class="subtle" id="healthHint" style="margin-top:6px;"></div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="projects">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <p>Selected repos + live stats</p>
+      </div>
+
+      <div class="grid">
+        <article class="project" data-repo="JestingDart4369/Python_Panel">
+          <div class="meta">
+            <span>Python</span><span>•</span><span>Dashboard</span>
+          </div>
+          <h3>Python Panel</h3>
+          <p>
+            A Python-based dashboard/tooling project — one place for utilities and quick info,
+            built for daily workflows.
+          </p>
+          <div class="stats-row" id="stats-JestingDart4369-Python_Panel">
+            <span class="statpill">⭐ <b>—</b> stars</span>
+            <span class="statpill">⑂ <b>—</b> forks</span>
+            <span class="statpill">⚑ <b>—</b> issues</span>
+            <span class="statpill">↻ <b>—</b> updated</span>
+          </div>
+          <div class="links">
+            <a class="linkbtn" href="https://github.com/JestingDart4369/Python_Panel" target="_blank" rel="noreferrer">Repo</a>
+          </div>
+        </article>
+
+        <article class="project" data-repo="C-Kaenel/Franzoesisch-Quiz">
+          <div class="meta">
+            <span>Learning</span><span>•</span><span>French</span>
+          </div>
+          <h3>Französisch Quiz</h3>
+          <p>
+            A French quiz tool for practice and repetition. (Repo lives under a different GitHub account.)
+          </p>
+          <div class="stats-row" id="stats-C-Kaenel-Franzoesisch-Quiz">
+            <span class="statpill">⭐ <b>—</b> stars</span>
+            <span class="statpill">⑂ <b>—</b> forks</span>
+            <span class="statpill">⚑ <b>—</b> issues</span>
+            <span class="statpill">↻ <b>—</b> updated</span>
+          </div>
+          <div class="links">
+            <a class="linkbtn" href="https://github.com/C-Kaenel/Franzoesisch-Quiz" target="_blank" rel="noreferrer">Repo</a>
+          </div>
+        </article>
+
+        <article class="project" data-repo="JestingDart4369/Api_Novaroma-Homelab">
+          <div class="meta">
+            <span>Backend</span><span>•</span><span>API</span>
+          </div>
+          <h3>Api_Novaroma-Homelab</h3>
+          <p>
+            The backend API for NovaRoma. Designed for clean endpoints, predictable behavior,
+            and easy deployments.
+          </p>
+          <div class="stats-row" id="stats-JestingDart4369-Api_Novaroma-Homelab">
+            <span class="statpill">⭐ <b>—</b> stars</span>
+            <span class="statpill">⑂ <b>—</b> forks</span>
+            <span class="statpill">⚑ <b>—</b> issues</span>
+            <span class="statpill">↻ <b>—</b> updated</span>
+          </div>
+          <div class="links">
+            <a class="linkbtn" href="https://github.com/JestingDart4369/Api_Novaroma-Homelab" target="_blank" rel="noreferrer">Repo</a>
+            <a class="linkbtn ghost" href="https://api.novaroma-homelab.uk" target="_blank" rel="noreferrer">Live API</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="meta">
+            <span>Profile</span><span>•</span><span>All repos</span>
+          </div>
+          <h3>GitHub</h3>
+          <p>
+            Everything else I’m hacking on: experiments, tools, and side projects.
+          </p>
+          <div class="stats-row" id="stats-summary">
+            <span class="statpill">⭐ <b id="sumStars">—</b> total stars</span>
+            <span class="statpill">⑂ <b id="sumForks">—</b> total forks</span>
+            <span class="statpill">⚑ <b id="sumIssues">—</b> total issues</span>
+          </div>
+          <div class="links">
+            <a class="linkbtn" href="https://github.com/JestingDart4369" target="_blank" rel="noreferrer">Open profile</a>
+          </div>
+          <div class="subtle" id="rateLimitNote" style="margin-top:10px;"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="commits">
+      <div class="section-title">
+        <h2>Latest commits</h2>
+        <p>Live updates from GitHub</p>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <h3>Recent activity</h3>
+          <p style="margin-bottom:12px;">
+            Pulled directly from GitHub (client-side). If GitHub rate-limits, it will show a fallback message.
+          </p>
+
+          <div id="commitStatus" class="meta" style="margin-bottom:12px;">
+            <span>Loading…</span>
+          </div>
+
+          <div id="commitList" class="timeline" aria-live="polite"></div>
+
+          <div class="links" style="margin-top:14px;">
+            <a class="linkbtn" href="https://github.com/JestingDart4369" target="_blank" rel="noreferrer">Open GitHub profile</a>
+            <a class="linkbtn ghost" href="#projects">Back to projects</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-title">
+        <h2>Services</h2>
+        <p>Public endpoints</p>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <h3>Endpoints</h3>
+          <p style="margin-top:6px;">
+            <span style="font-family:var(--mono)">https://novaroma-homelab.uk</span><br/>
+            <span style="font-family:var(--mono)">https://api.novaroma-homelab.uk</span>
+          </p>
+          <div class="links" style="margin-top:12px;">
+            <a class="linkbtn" href="https://novaroma-homelab.uk" target="_blank" rel="noreferrer">Open main site</a>
+            <a class="linkbtn" href="https://api.novaroma-homelab.uk" target="_blank" rel="noreferrer">Open API</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> JestingDart4369 • novaroma-homelab.uk</div>
+      <div class="social" aria-label="Social links">
+        <a href="https://github.com/JestingDart4369" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="#projects">Projects</a>
+        <a href="#home">Top</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ---------------------------
+    // Year
+    // ---------------------------
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ---------------------------
+    // Automatic dark/light based on system + manual toggle
+    // ---------------------------
+    const themeBtn = document.getElementById("themeBtn");
+
+    function getSystemTheme(){
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    }
+
+    function applyTheme(theme){
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      themeBtn.textContent = theme === "light" ? "Dark" : "Light";
+      themeBtn.setAttribute("aria-label", "Switch theme");
+    }
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light" || savedTheme === "dark") applyTheme(savedTheme);
+    else applyTheme(getSystemTheme());
+
+    // If user never chose a theme, keep following system changes
+    const media = window.matchMedia("(prefers-color-scheme: light)");
+    media.addEventListener?.("change", () => {
+      const currentSaved = localStorage.getItem("theme");
+      if (currentSaved !== "light" && currentSaved !== "dark") applyTheme(getSystemTheme());
+    });
+
+    themeBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || getSystemTheme();
+      applyTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // ---------------------------
+    // Smooth scroll
+    // ---------------------------
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        if (!id || id === "#") return;
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    // ---------------------------
+    // Subtle animated background particles (canvas)
+    // ---------------------------
+    (function particles(){
+      const canvas = document.getElementById("particles");
+      const ctx = canvas.getContext("2d");
+      let w = 0, h = 0, dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+
+      function resize(){
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      const count = Math.floor(Math.min(120, Math.max(55, (w*h)/22000)));
+      const dots = [];
+      const rand = (a,b)=>a+Math.random()*(b-a);
+
+      for(let i=0;i<count;i++){
+        dots.push({
+          x: rand(0,w),
+          y: rand(0,h),
+          r: rand(0.8, 2.2),
+          vx: rand(-0.25, 0.25),
+          vy: rand(-0.22, 0.22),
+        });
+      }
+
+      function themeLineColor(){
+        const theme = document.documentElement.getAttribute("data-theme") || getSystemTheme();
+        return theme === "light" ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.12)";
+      }
+      function themeDotColor(){
+        const theme = document.documentElement.getAttribute("data-theme") || getSystemTheme();
+        return theme === "light" ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.30)";
+      }
+
+      function step(){
+        ctx.clearRect(0,0,w,h);
+
+        // dots
+        const dotCol = themeDotColor();
+        ctx.fillStyle = dotCol;
+        for(const p of dots){
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+
+        // connections
+        const lineCol = themeLineColor();
+        ctx.strokeStyle = lineCol;
+        ctx.lineWidth = 1;
+
+        for(let i=0;i<dots.length;i++){
+          for(let j=i+1;j<dots.length;j++){
+            const a = dots[i], b = dots[j];
+            const dx = a.x-b.x, dy = a.y-b.y;
+            const dist2 = dx*dx + dy*dy;
+            const maxDist = 135;
+            if (dist2 < maxDist*maxDist){
+              const alpha = 1 - Math.sqrt(dist2)/maxDist;
+              ctx.globalAlpha = alpha * 0.65;
+              ctx.beginPath();
+              ctx.moveTo(a.x,a.y);
+              ctx.lineTo(b.x,b.y);
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    })();
+
+    // ---------------------------
+    // GitHub repo stats + latest commits
+    // ---------------------------
+    const repos = [
+      { owner: "JestingDart4369", repo: "Python_Panel", label: "Python Panel" },
+      { owner: "C-Kaenel",        repo: "Franzoesisch-Quiz", label: "Französisch Quiz" },
+      { owner: "JestingDart4369", repo: "Api_Novaroma-Homelab", label: "NovaRoma API" },
+    ];
+
+    const rateLimitNote = document.getElementById("rateLimitNote");
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function timeAgo(date){
+      const diffMs = Date.now() - date.getTime();
+      const sec = Math.floor(diffMs/1000);
+      if (sec < 60) return `${sec}s ago`;
+      const min = Math.floor(sec/60);
+      if (min < 60) return `${min}m ago`;
+      const hr = Math.floor(min/60);
+      if (hr < 24) return `${hr}h ago`;
+      const day = Math.floor(hr/24);
+      if (day < 30) return `${day}d ago`;
+      const mo = Math.floor(day/30);
+      if (mo < 12) return `${mo}mo ago`;
+      const yr = Math.floor(mo/12);
+      return `${yr}y ago`;
+    }
+
+    function fmtDateShort(d){
+      // show "2d ago" style rather than absolute, more portfolio-friendly
+      return timeAgo(d);
+    }
+
+    async function ghFetch(url){
+      const res = await fetch(url, { headers: { "Accept": "application/vnd.github+json" }});
+      // Capture rate-limit headers for user-friendly note
+      const remaining = res.headers.get("x-ratelimit-remaining");
+      const reset = res.headers.get("x-ratelimit-reset");
+      if (remaining !== null && reset !== null){
+        const resetMs = Number(reset) * 1000;
+        const resetDate = new Date(resetMs);
+        rateLimitNote.textContent = `GitHub API remaining: ${remaining}. Resets at ${resetDate.toLocaleTimeString()}.`;
+      }
+      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+      return res.json();
+    }
+
+    async function loadRepoStats(){
+      let sumStars = 0, sumForks = 0, sumIssues = 0;
+
+      await Promise.all(repos.map(async r => {
+        try{
+          const data = await ghFetch(`https://api.github.com/repos/${r.owner}/${r.repo}`);
+          const stars = data.stargazers_count ?? 0;
+          const forks = data.forks_count ?? 0;
+          const issues = data.open_issues_count ?? 0;
+          const updatedAt = data.pushed_at ? new Date(data.pushed_at) : (data.updated_at ? new Date(data.updated_at) : null);
+
+          sumStars += stars;
+          sumForks += forks;
+          sumIssues += issues;
+
+          const id = `stats-${r.owner}-${r.repo}`.replaceAll("/", "-");
+          const row = document.getElementById(id);
+          if (row){
+            const updatedText = updatedAt ? fmtDateShort(updatedAt) : "—";
+            row.innerHTML = `
+              <span class="statpill">⭐ <b>${stars}</b> stars</span>
+              <span class="statpill">⑂ <b>${forks}</b> forks</span>
+              <span class="statpill">⚑ <b>${issues}</b> issues</span>
+              <span class="statpill">↻ <b>${updatedText}</b> updated</span>
+            `;
+          }
+        } catch (e){
+          // If rate-limited, leave placeholders but keep the page nice
+          // (No noisy UI)
+        }
+      }));
+
+      document.getElementById("sumStars").textContent = String(sumStars);
+      document.getElementById("sumForks").textContent = String(sumForks);
+      document.getElementById("sumIssues").textContent = String(sumIssues);
+    }
+
+    const commitStatus = document.getElementById("commitStatus");
+    const commitList = document.getElementById("commitList");
+
+    async function loadLatestCommits(){
+      try{
+        commitStatus.innerHTML = `<span>Fetching latest commits…</span>`;
+
+        const results = await Promise.all(repos.map(async r => {
+          const commits = await ghFetch(`https://api.github.com/repos/${r.owner}/${r.repo}/commits?per_page=5`);
+          return commits.map(c => {
+            const dateStr =
+              (c.commit && c.commit.author && c.commit.author.date) ||
+              (c.commit && c.commit.committer && c.commit.committer.date) ||
+              null;
+
+            const when = dateStr ? new Date(dateStr) : null;
+            const message = (c.commit && c.commit.message) ? c.commit.message.split("\n")[0] : "(no message)";
+            const author =
+              (c.commit && c.commit.author && c.commit.author.name) ||
+              (c.author && c.author.login) ||
+              "Unknown";
+
+            return {
+              repoLabel: r.label,
+              repoFull: `${r.owner}/${r.repo}`,
+              message,
+              author,
+              when,
+              htmlUrl: c.html_url || `https://github.com/${r.owner}/${r.repo}`,
+              sha: c.sha || ""
+            };
+          });
+        }));
+
+        const allCommits = results.flat().sort((a,b) => {
+          const ta = a.when ? a.when.getTime() : 0;
+          const tb = b.when ? b.when.getTime() : 0;
+          return tb - ta;
+        });
+
+        const show = allCommits.slice(0, 10);
+
+        commitStatus.innerHTML = `
+          <span>Showing latest updates from</span>
+          ${repos.map(r => `<span class="pill">${escapeHtml(r.label)}</span>`).join(" ")}
+        `;
+
+        if (!show.length){
+          commitList.innerHTML = `
+            <div class="item">
+              <div class="icon"></div>
+              <div>
+                <strong>No commits found</strong>
+                <span>GitHub returned no data.</span>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        commitList.innerHTML = show.map(c => {
+          const whenText = c.when ? timeAgo(c.when) : "unknown time";
+          const exact = c.when ? c.when.toLocaleString() : "unknown";
+          return `
+            <div class="item">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <strong>
+                  <a href="${c.htmlUrl}" target="_blank" rel="noreferrer">
+                    ${escapeHtml(c.message)}
+                  </a>
+                </strong>
+                <span>${escapeHtml(c.repoLabel)} • ${escapeHtml(c.author)} • ${whenText}</span>
+                <span class="small" title="${escapeHtml(exact)}">${escapeHtml(c.repoFull)} • ${escapeHtml(c.sha.slice(0,7))}</span>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+      } catch (e){
+        commitStatus.innerHTML = `<span>Couldn’t load commits (GitHub rate limit or network).</span>`;
+        commitList.innerHTML = `
+          <div class="item">
+            <div class="icon" aria-hidden="true"></div>
+            <div>
+              <strong>Latest commits unavailable</strong>
+              <span>
+                This can happen if GitHub rate-limits anonymous requests.
+                Try again later (or use a server-side proxy if you want it 100% reliable).
+              </span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // ---------------------------
+    // API health indicator (green/red)
+    // ---------------------------
+    const healthDot = document.getElementById("healthDot");
+    const healthText = document.getElementById("healthText");
+    const healthHint = document.getElementById("healthHint");
+
+    async function checkHealth(){
+      // Use proxy endpoint to avoid CORS issues
+      const proxyUrl = "/api/check-health";
+
+      try{
+        healthDot.classList.remove("ok","bad");
+        healthText.textContent = "Checking…";
+        healthHint.textContent = "";
+
+        const res = await fetch(proxyUrl, {
+          method: "GET",
+          cache: "no-store",
+        });
+
+        if (res.ok){
+          const data = await res.json();
+          if (data.status === "online"){
+            healthDot.classList.add("ok");
+            healthText.textContent = "Online";
+            healthHint.textContent = `API responding: ${data.status_code}`;
+          } else {
+            healthDot.classList.add("bad");
+            healthText.textContent = "Offline";
+            healthHint.textContent = data.error || `Status: ${data.status_code || "unknown"}`;
+          }
+        } else {
+          healthDot.classList.add("bad");
+          healthText.textContent = "Check failed";
+          healthHint.textContent = "Could not reach health check endpoint";
+        }
+      } catch (e){
+        healthDot.classList.add("bad");
+        healthText.textContent = "Check failed";
+        healthHint.textContent = e.message || "Network error";
+      }
+    }
+
+    // Run loaders
+    loadRepoStats();
+    loadLatestCommits();
+    checkHealth();
+
+    // Optional: refresh health occasionally (every 60s)
+    setInterval(checkHealth, 60000);
+  </script>
+</body>
+</html>q
