@@ -783,7 +783,7 @@
         <div class="panel">
           <h3>Recent activity</h3>
           <p style="margin-bottom:12px;">
-            Pulled directly from GitHub (client-side). If GitHub rate-limits, it will show a fallback message.
+            Pulled through a cached server-side GitHub proxy, with a built-in snapshot as backup.
           </p>
 
           <div id="commitStatus" class="meta" style="margin-bottom:12px;">
@@ -983,6 +983,99 @@
       { owner: "JestingDart4369", repo: "Api_Novaroma-Homelab", label: "NovaRoma API" },
     ];
 
+    const fallbackCommits = [
+      {
+            "repoLabel": "NovaRoma API",
+            "repoFull": "JestingDart4369/Api_Novaroma-Homelab",
+            "message": "Move all project files into `legacy` directory for restructuring.",
+            "author": "JestingDart4369",
+            "when": "2026-05-09T16:45:44Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Api_Novaroma-Homelab/commit/baa64ada52d57b88017166afd872fbae93497bc1",
+            "sha": "baa64ada52d57b88017166afd872fbae93497bc1"
+      },
+      {
+            "repoLabel": "NovaRoma API",
+            "repoFull": "JestingDart4369/Api_Novaroma-Homelab",
+            "message": "Move all project files into a `legacy` directory for restructuring.",
+            "author": "JestingDart4369",
+            "when": "2026-05-09T16:45:35Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Api_Novaroma-Homelab/commit/e7bedc19835d4ea56fe179cf7068f1beea7ee85a",
+            "sha": "e7bedc19835d4ea56fe179cf7068f1beea7ee85a"
+      },
+      {
+            "repoLabel": "NovaRoma API",
+            "repoFull": "JestingDart4369/Api_Novaroma-Homelab",
+            "message": "initial commit",
+            "author": "JestingDart4369",
+            "when": "2026-05-09T16:20:56Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Api_Novaroma-Homelab/commit/b66fc153c9abaa34384503e2310a7faaaccd4b27",
+            "sha": "b66fc153c9abaa34384503e2310a7faaaccd4b27"
+      },
+      {
+            "repoLabel": "Python Panel",
+            "repoFull": "JestingDart4369/Python_Panel",
+            "message": "Migrate to `config.py` and update services for enhanced gateway integration",
+            "author": "JestingDart4369",
+            "when": "2026-02-04T19:41:49Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Python_Panel/commit/3193d9bae506ce459a235f2d6795690a77e04df8",
+            "sha": "3193d9bae506ce459a235f2d6795690a77e04df8"
+      },
+      {
+            "repoLabel": "Python Panel",
+            "repoFull": "JestingDart4369/Python_Panel",
+            "message": "Patch CVE-2026-21441: bump urllib3 2.6.2 -> 2.6.3",
+            "author": "JestingDart4369",
+            "when": "2026-02-04T18:47:21Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Python_Panel/commit/cb027533c813a100f1daef51420e45913706dea5",
+            "sha": "cb027533c813a100f1daef51420e45913706dea5"
+      },
+      {
+            "repoLabel": "Python Panel",
+            "repoFull": "JestingDart4369/Python_Panel",
+            "message": "Add heartbeat kill-switch to dashboard",
+            "author": "JestingDart4369",
+            "when": "2026-02-04T18:40:01Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Python_Panel/commit/bc3b162a3f7d2e01c62301ab03cc76781263f8e6",
+            "sha": "bc3b162a3f7d2e01c62301ab03cc76781263f8e6"
+      },
+      {
+            "repoLabel": "Python Panel",
+            "repoFull": "JestingDart4369/Python_Panel",
+            "message": "Add software/hardware health methods to gateway client",
+            "author": "JestingDart4369",
+            "when": "2026-02-04T18:31:48Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Python_Panel/commit/1316e7be4800a9066aee0ac8ba3a4ba7a7c47678",
+            "sha": "1316e7be4800a9066aee0ac8ba3a4ba7a7c47678"
+      },
+      {
+            "repoLabel": "Python Panel",
+            "repoFull": "JestingDart4369/Python_Panel",
+            "message": "Update gateway client endpoint paths to match API Gateway rewrite",
+            "author": "JestingDart4369",
+            "when": "2026-02-04T15:19:37Z",
+            "htmlUrl": "https://github.com/JestingDart4369/Python_Panel/commit/f4ac3906746b240afc97988d27e8b42279800fe2",
+            "sha": "f4ac3906746b240afc97988d27e8b42279800fe2"
+      },
+      {
+            "repoLabel": "Französisch Quiz",
+            "repoFull": "C-Kaenel/Franzoesisch-Quiz",
+            "message": "Update README.md",
+            "author": "C-Kaenel",
+            "when": "2025-12-21T17:05:14Z",
+            "htmlUrl": "https://github.com/C-Kaenel/Franzoesisch-Quiz/commit/c9503925feece814055421cb87d5e42f5d009e41",
+            "sha": "c9503925feece814055421cb87d5e42f5d009e41"
+      },
+      {
+            "repoLabel": "Französisch Quiz",
+            "repoFull": "C-Kaenel/Franzoesisch-Quiz",
+            "message": "Delete duplicated .gitignore",
+            "author": "C-Kaenel",
+            "when": "2025-12-21T16:32:09Z",
+            "htmlUrl": "https://github.com/C-Kaenel/Franzoesisch-Quiz/commit/8d0d33dd1f61fd4a40bebcc0677fcfe29e0c87ee",
+            "sha": "8d0d33dd1f61fd4a40bebcc0677fcfe29e0c87ee"
+      }
+];
+
     const rateLimitNote = document.getElementById("rateLimitNote");
 
     function escapeHtml(str){
@@ -1034,7 +1127,7 @@
 
       await Promise.all(repos.map(async r => {
         try{
-          const data = await ghFetch(`https://api.github.com/repos/${r.owner}/${r.repo}`);
+          const data = await ghFetch(`/github/repos/${r.owner}/${r.repo}`);
           const stars = data.stargazers_count ?? 0;
           const forks = data.forks_count ?? 0;
           const issues = data.open_issues_count ?? 0;
@@ -1069,12 +1162,33 @@
     const commitStatus = document.getElementById("commitStatus");
     const commitList = document.getElementById("commitList");
 
+    function renderCommitItems(commits){
+      return commits.map(c => {
+        const whenText = c.when ? timeAgo(c.when) : "unknown time";
+        const exact = c.when ? c.when.toLocaleString() : "unknown";
+        return `
+          <div class="item">
+            <div class="icon" aria-hidden="true"></div>
+            <div>
+              <strong>
+                <a href="${c.htmlUrl}" target="_blank" rel="noreferrer">
+                  ${escapeHtml(c.message)}
+                </a>
+              </strong>
+              <span>${escapeHtml(c.repoLabel)} • ${escapeHtml(c.author)} • ${whenText}</span>
+              <span class="small" title="${escapeHtml(exact)}">${escapeHtml(c.repoFull)} • ${escapeHtml(c.sha.slice(0,7))}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
     async function loadLatestCommits(){
       try{
         commitStatus.innerHTML = `<span>Fetching latest commits…</span>`;
 
         const results = await Promise.all(repos.map(async r => {
-          const commits = await ghFetch(`https://api.github.com/repos/${r.owner}/${r.repo}/commits?per_page=5`);
+          const commits = await ghFetch(`/github/repos/${r.owner}/${r.repo}/commits?per_page=5`);
           return commits.map(c => {
             const dateStr =
               (c.commit && c.commit.author && c.commit.author.date) ||
@@ -1126,39 +1240,15 @@
           return;
         }
 
-        commitList.innerHTML = show.map(c => {
-          const whenText = c.when ? timeAgo(c.when) : "unknown time";
-          const exact = c.when ? c.when.toLocaleString() : "unknown";
-          return `
-            <div class="item">
-              <div class="icon" aria-hidden="true"></div>
-              <div>
-                <strong>
-                  <a href="${c.htmlUrl}" target="_blank" rel="noreferrer">
-                    ${escapeHtml(c.message)}
-                  </a>
-                </strong>
-                <span>${escapeHtml(c.repoLabel)} • ${escapeHtml(c.author)} • ${whenText}</span>
-                <span class="small" title="${escapeHtml(exact)}">${escapeHtml(c.repoFull)} • ${escapeHtml(c.sha.slice(0,7))}</span>
-              </div>
-            </div>
-          `;
-        }).join("");
+        commitList.innerHTML = renderCommitItems(show);
 
       } catch (e){
-        commitStatus.innerHTML = `<span>Couldn’t load commits (GitHub rate limit or network).</span>`;
-        commitList.innerHTML = `
-          <div class="item">
-            <div class="icon" aria-hidden="true"></div>
-            <div>
-              <strong>Latest commits unavailable</strong>
-              <span>
-                This can happen if GitHub rate-limits anonymous requests.
-                Try again later (or use a server-side proxy if you want it 100% reliable).
-              </span>
-            </div>
-          </div>
+        const cached = fallbackCommits.map(c => ({ ...c, when: c.when ? new Date(c.when) : null }));
+        commitStatus.innerHTML = `
+          <span>Showing cached latest commits</span>
+          <span class="pill">updates automatically when the site is deployed</span>
         `;
+        commitList.innerHTML = renderCommitItems(cached);
       }
     }
 
