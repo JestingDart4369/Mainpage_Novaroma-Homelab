@@ -18,12 +18,14 @@
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 
-      /* Accent */
-      --accent: #FF9500;
-      --accent2: #FFB84D;
+      /* Logo-inspired palette */
+      --accent: #EEE3C9;
+      --accent2: #C4A798;
+      --accent3: #5E282C;
+      --deep: #2F0304;
 
       /* Dark defaults */
-      --bg: #0c1020;
+      --bg: #190607;
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.62);
       --line: rgba(255,255,255,.12);
@@ -44,9 +46,9 @@
     @media (prefers-color-scheme: light){
       :root{
         --bg: #f6f7fb;
-        --text: rgba(0,0,0,.88);
-        --muted: rgba(0,0,0,.62);
-        --line: rgba(0,0,0,.12);
+        --text: color-mix(in srgb, var(--deep) 88%, black 12%);
+        --muted: color-mix(in srgb, var(--deep) 68%, transparent);
+        --line: color-mix(in srgb, var(--accent3) 22%, transparent);
         --shadow: 0 18px 60px rgba(0,0,0,.14);
         --glass: rgba(255,255,255,.65);
         --glass2: rgba(255,255,255,.78);
@@ -55,7 +57,7 @@
 
     /* Manual theme override via [data-theme] */
     html[data-theme="dark"]{
-      --bg:#0c1020;
+      --bg:#190607;
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.62);
       --line:rgba(255,255,255,.12);
@@ -65,9 +67,9 @@
     }
     html[data-theme="light"]{
       --bg:#f6f7fb;
-      --text:rgba(0,0,0,.88);
-      --muted:rgba(0,0,0,.62);
-      --line:rgba(0,0,0,.12);
+      --text:color-mix(in srgb, var(--deep) 88%, black 12%);
+      --muted:color-mix(in srgb, var(--deep) 68%, transparent);
+      --line:color-mix(in srgb, var(--accent3) 22%, transparent);
       --shadow:0 18px 60px rgba(0,0,0,.14);
       --glass:rgba(255,255,255,.65);
       --glass2:rgba(255,255,255,.78);
@@ -82,8 +84,9 @@
       margin:0;
       font-family: var(--sans);
       background:
-        radial-gradient(900px 550px at 18% 5%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%),
-        radial-gradient(820px 520px at 85% 15%, color-mix(in srgb, var(--accent2) 14%, transparent), transparent 60%),
+        radial-gradient(900px 550px at 18% 5%, color-mix(in srgb, var(--accent3) 38%, transparent), transparent 60%),
+        radial-gradient(820px 520px at 85% 15%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%),
+        radial-gradient(700px 500px at 50% 110%, color-mix(in srgb, var(--accent2) 18%, transparent), transparent 60%),
         var(--bg);
       color: var(--text);
       overflow-x:hidden;
@@ -131,11 +134,39 @@
     }
 
     .mark{
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: var(--shadow);
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 68%, white 8%), color-mix(in srgb, var(--accent2) 72%, var(--accent3) 28%));
+      box-shadow: 0 12px 36px color-mix(in srgb, var(--deep) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent) inset;
+      overflow:hidden;
+    }
+    .mark img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .logo-strip{
+      display:flex;
+      justify-content:center;
+      margin: -22px 0 20px;
+      pointer-events:none;
+    }
+    .hero-logo{
+      width: clamp(92px, 16vw, 154px);
+      height: clamp(92px, 16vw, 154px);
+      border-radius: 34px;
+      object-fit: cover;
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      box-shadow:
+        0 26px 80px color-mix(in srgb, var(--deep) 80%, transparent),
+        0 0 0 10px color-mix(in srgb, var(--accent) 10%, transparent),
+        0 0 90px color-mix(in srgb, var(--accent2) 26%, transparent);
+      background: var(--accent);
     }
 
     .brand strong{
@@ -203,9 +234,11 @@
       text-decoration: none;
     }
     .btn.primary{
-      border: none;
-      color: white;
-      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent2) 88%, white 12%));
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      color: var(--deep);
+      font-weight: 800;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 96%, white 4%), color-mix(in srgb, var(--accent2) 86%, white 14%));
+      box-shadow: 0 10px 28px color-mix(in srgb, var(--accent3) 30%, transparent);
     }
     .btn.primary:hover{ filter: brightness(1.05); }
 
@@ -477,7 +510,8 @@
     .item .icon{
       width: 34px; height: 34px;
       border-radius: 12px;
-      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, white 8%), color-mix(in srgb, var(--accent2) 88%, white 12%));
+      background: linear-gradient(135deg, var(--accent), var(--accent2) 58%, var(--accent3));
+      box-shadow: 0 8px 24px color-mix(in srgb, var(--accent3) 35%, transparent);
       flex: 0 0 auto;
     }
     .item strong{
@@ -593,7 +627,7 @@
   <header>
     <div class="nav">
       <a class="brand" href="#home" aria-label="Go to top">
-        <div class="mark" aria-hidden="true"></div>
+        <div class="mark" aria-hidden="true"><img src="/images/Nova-roma_logo.png" alt="" /></div>
         <div>
           <strong>JestingDart4369</strong>
           <span>novaroma-homelab.uk</span>
@@ -615,6 +649,10 @@
   </header>
 
   <main class="wrap" id="home">
+    <div class="logo-strip" aria-hidden="true">
+      <img class="hero-logo" src="/images/Nova-roma_logo.png" alt="" />
+    </div>
+
     <div class="hero">
       <div class="card hero-main">
         <div class="kicker">
