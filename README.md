@@ -1,83 +1,48 @@
 # NovaRoma Homelab - Mainpage
 
-Personal portfolio and project showcase for JestingDart4369.
-
-## Features
-
-- Modern glassmorphic design with gradient backgrounds
-- Automatic dark/light theme switching
-- Animated particle background
-- Live GitHub repository stats integration
-- Latest commits feed
-- API health monitoring
-- Responsive design
+Static personal portfolio and project showcase for JestingDart4369.
 
 ## Tech Stack
 
-- **Backend**: FastAPI (Python)
+- **Hosting**: nginx static web server
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript
 - **Deployment**: Docker + Cloudflare Tunnel
 
-## Setup
+## Structure
 
-### 1. Install Dependencies
+```text
+app/template/
+├── index.html          # Static portfolio page
+├── page.html           # Same page source kept for compatibility
+├── favicon.ico
+├── favicon-32.png
+└── images/
+    ├── Nova-roma_logo.png
+    ├── favicon.ico
+    └── favicon-32.png
+nginx/default.conf      # nginx routes, static hosting, /health, API health proxy
+Dockerfile              # nginx-based container
+```
+
+## Routes
+
+- `/` serves the static site
+- `/favicon.ico` serves the favicon directly from nginx
+- `/favicon-32.png` serves the PNG favicon
+- `/health` returns a static JSON health response
+- `/api/check-health` proxies to the API container's `/health` endpoint for the homepage status indicator
+
+## Local Docker Run
 
 ```bash
-# Create virtual environment
-python -m venv .venv
-
-# Activate virtual environment
-# Windows:
-.venv\Scripts\activate
-# Linux/Mac:
-source .venv/bin/activate
-
-# Install requirements
-pip install -r requirements.txt
+docker build -t novaroma-mainpage .
+docker run --rm -p 8000:8000 novaroma-mainpage
 ```
 
-### 2. Run Development Server
+Then open <http://localhost:8000>.
 
-```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
+## Production
 
-### 3. Access the Application
+Production URL: <https://novaroma-homelab.uk>
 
-Open your browser and navigate to:
-- **Main page**: http://localhost:8000
-- **API docs**: http://localhost:8000/docs
-- **Health check**: http://localhost:8000/health
-
-## Project Structure
-
-```
-01_Mainpage/
-├── app/
-│   ├── __init__.py
-│   ├── main.py              # FastAPI application
-│   └── template/
-│       └── page.html        # Portfolio HTML page
-├── .venv/                   # Virtual environment (ignored)
-├── .gitignore
-├── requirements.txt
-├── LICENSE
-└── README.md
-```
-
-## Deployment
-
-The application is designed to run in Docker and be exposed via Cloudflare Tunnel:
-
-- Production URL: https://novaroma-homelab.uk
-- API URL: https://api.novaroma-homelab.uk
-
-## License
-
-See [LICENSE](LICENSE) file for details.
-
-## Author
-
-JestingDart4369
-- GitHub: [@JestingDart4369](https://github.com/JestingDart4369)
-- Domain: novaroma-homelab.uk
+The container is intended to run on the shared Docker Compose network with Cloudflare Tunnel pointing to `novaroma-mainpage:8000`.
