@@ -7,13 +7,13 @@
     <meta name="author" content="JestingDart4369" />
     <title>Novaroma | Portfolio</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="assets/favicon.ico?v=20260622-3"/>
+    <link rel="icon" href="assets/favicon.ico?v=20260622-4"/>
     <link rel="preconnect" href="https://github.com" />
   </head>
   <body>    
     <header>
         <a href="index.html">
-            <img src="assets/nova-roma-logo.png?v=20260622-3" alt="Novaroma Logo" class="website-logo">
+            <img src="assets/nova-roma-logo.png?v=20260622-4" alt="Novaroma Logo" class="website-logo">
         </a>
         <div class="website-title">
             <h1>JestingDart4369</h1>
@@ -31,61 +31,62 @@
         </nav>
         <a href="https://api.novaroma-homelab.uk" class="btn-api" target="_blank" rel="noopener">Open Api</a>
     </header>
-
     <hr class="divider-header">
-
     <main>
-    
-    <section class="Hero">
-        <p class="Hero-sub">
-            portfolio • projects • experiments
+      <section class="career-path">
+        <h2>Career Path</h2>
+        <div class="career-timeline">
+          <div class="career-item">
+            <h3>IMS Baden</h3>
+            <span>4 Years (2025–2028)</span>
+          </div>
+          <div class="career-item">
+            <h3>Secondary School</h3>
+            <span>3 Years (2022–2025)</span>
+          </div>
+          <div class="career-item">
+            <h3>Primary School</h3>
+            <span>6 Years (2016–2022)</span>
+          </div>
+        </div>
+      </section>
+ 
+      <!-- Lebenslauf (mitte) -->
+      <section class="portfolio-text">
+        <p>
+          I am JestingDart4369, a student at IMS Baden with a passion for building
+          practical software tools. My focus lies in backend development, automation,
+          and self-hosted infrastructure. I enjoy working with Python, Docker, and
+          Cloudflare Tunnel to build reliable systems. Over the years I have developed
+          several projects ranging from API backends to quiz tools and dashboards.
+          I value clean, maintainable code and prefer simple solutions over complex ones.
+          My homelab serves as a playground for experimenting with new technologies.
+          I am always looking to learn and improve my skills as a developer.
+          This portfolio reflects where I am now and where I am heading.
         </p>
-        <div>
-        <p class="Hero-sub">
-            API: api.novaroma-homelab.uk
-        </p>
-        <p class="Hero-sub">
-            GitHub: JestingDart4369
+      </section>
+ 
+      <!-- Aside: Profilbild + Techstack (rechts) -->
+      <aside class="portfolio-aside">
+        <div class="portfolio-profile">
+        <img src="assets/profile.jpeg" alt="Profilbild JestingDart4369" class="profile-pic">
+        <p class="profile-desc">
+          🐍 Python &amp; C# developer —
+          IMS Baden student building CLI tools, automation scripts, and API projects.
         </p>
         </div>
-        <h1>
-            I build tools,<br>
-APIs & small systems.
-        </h1>
-        <p class="hero-text">
-            This is my personal portfolio and homelab showcase. I like building practical software: dashboards, automation scripts, and backend services. My projects run on self-hosted infrastructure using Docker and Cloudflare Tunnel. Everything on this domain is built, deployed, and maintained by me. Below you will find an overview of my active projects and GitHub repositories. The API at api.novaroma-homelab.uk powers all dynamic services on this site. I document my work here so others can see how I approach problems. Feel free to explore the pages and reach out via GitHub.
-        </p>
-        <div class="Hero-buttons">
-            <a href="Projects.html" class="btn-primary">View Projects</a>
-            <a href="Activity.html" class="btn-secondary">Latest Activity</a>
-            <a href="https://github.com/JestingDart4369" target="_blank" rel="noopener" class="btn-secondary">GitHub Profile</a>
+        <div class="techstack-block">
+          <h3>Techstack</h3>
+          <p>Mostly self-hosted workflows and clean, maintainable code.</p>
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Cloudflare Tunnel</span>
+            <span class="tag">Js/HTML</span>
+            <span class="tag">Python</span>
+          </div>
         </div>
-    </section>
-    <aside class="info-panel">
-        <div class="info-block">
-            <h3>Now</h3>
-            <p>Building and deploying small services under one domain (Cloudflare Tunnel + Docker).</p>
-        </div>
-        <div class="info-block">
-            <h3>Stack</h3>
-            <p>Mostly self-hosted workflows and clean, maintainable code.</p>
-            <div class="tags">
-                <span class="tag">Docker</span>
-                <span class="tag">Cloudflare Tunnel</span>
-                <span class="tag">Js/HTML</span>
-                <span class="tag">Python</span>
-                <img src="assets/fastapi-badge.png?v=20260622-3" alt="The FastAPI Logo" class="tag-icon">
-            </div>
-        </div>
+      </aside>
 
-        <div class="info-block">
-            <h3>API Status</h3>
-            <p>Live indicator (client-side check):</p>
-            <p id="api-status">Checking...</p>
-        </div>
-
-    </aside>
-    
     </main>
     <hr class="divider-bottom">
     <footer>
@@ -96,19 +97,14 @@ APIs & small systems.
             <a href="#Top">Top</a>
         </nav>
     </footer>
+
+
     <script>
     // Hamburger Menu
     document.getElementById('menu-btn').addEventListener('click', () => {
       document.getElementById('nav-links').classList.toggle('open');
     });
- 
-    // API Status Check
-    fetch('/api/check-health')
-      .then(res => {
-        document.getElementById('api-status').textContent =
-          res.ok ? 'Online — API responding: ' + res.status : 'Offline';
-      })
-      .catch(() => {
-        document.getElementById('api-status').textContent = 'Offline';
-      });
   </script>
+
+  </body>
+</html>
