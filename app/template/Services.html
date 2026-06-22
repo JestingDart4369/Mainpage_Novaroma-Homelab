@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JestingDart4369 — Public API Endpoints and Services" />
+    <meta name="author" content="JestingDart4369" />
+    <title>Novaroma | Services</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/favicon.ico?v=20260622-3" />
+  </head>
+  <body>
+
+    <header>
+      <a href="index.html">
+        <img src="assets/nova-roma-logo.png?v=20260622-3" alt="Novaroma Logo" class="website-logo">
+      </a>
+      <div class="website-title">
+        <h1>JestingDart4369</h1>
+        <p>novaroma-homelab.uk</p>
+      </div>
+      <nav>
+        <button class="hamburger-menu" id="menu-btn"></button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Portfolio</a></li>
+          <li><a href="Projects.html">Projects</a></li>
+          <li><a href="Activity.html">Activity</a></li>
+          <li><a href="Services.html" class="active">Services</a></li>
+          <li><a href="https://github.com/JestingDart4369" target="_blank" rel="noopener">Github</a></li>
+        </ul>
+      </nav>
+      <a href="https://api.novaroma-homelab.uk" class="btn-api" target="_blank" rel="noopener">Open Api</a>
+    </header>
+
+    <hr class="divider-header">
+
+    <main>
+
+      <!-- Services Grid (links) -->
+      <section class="services-section">
+        <h2>Services</h2>
+        <p>Public endpoints hosted on novaroma-homelab.uk</p>
+
+        <div class="services-grid">
+
+          <!-- API Card -->
+          <div class="service-card">
+            <!-- Bildnachweis: FastAPI Logo — github.com/fastapi/fastapi, MIT Lizenz -->
+             <div class="service-header">
+            <h3>Api</h3>
+            </div>
+            <p>
+              The main backend API for NovaRoma Homelab. Built with FastAPI and deployed
+              via Docker and Cloudflare Tunnel. Provides clean, predictable endpoints for
+              all services on this domain. The API is publicly accessible and designed for
+              easy integration. All endpoints follow RESTful conventions. Authentication
+              is handled per-endpoint as needed. The API is monitored live and status is
+              shown on the home page. Documentation is available via the built-in FastAPI
+              docs interface.
+            </p>
+            <span class="endpoint-url">https://api.novaroma-homelab.uk</span>
+            <br>
+            <a href="https://api.novaroma-homelab.uk" target="_blank" class="btn-secondary">Open API</a>
+          </div>
+
+          <!-- Other Endpoints Card -->
+          <div class="service-card">
+            <h3>Other Endpoints</h3>
+            <p>
+              Additional services and tools hosted under the novaroma-homelab.uk domain.
+              All services run in isolated Docker containers behind a Cloudflare Tunnel.
+              Each service is independently deployed and maintained. The main website is
+              served as a static site via the same infrastructure. Services are monitored
+              and restarted automatically on failure. Access to internal services is
+              restricted by Cloudflare Access where needed. New services are added as
+              projects grow. All traffic is encrypted via HTTPS through Cloudflare.
+            </p>
+            <span class="endpoint-url">https://novaroma-homelab.uk</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Aside (rechts) -->
+      <aside class="info-panel">
+        <div class="info-block">
+          <h3>Stack</h3>
+          <p>Mostly self-hosted workflows and clean, maintainable code.</p>
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Cloudflare Tunnel</span>
+            <span class="tag">Js/HTML</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="info-block">
+        <h3>API</h3>
+        <p>Built with FastAPI, a modern Python web framework for building APIs quickly and efficiently.</p>
+        <img src="assets/fastapi-badge.png?v=20260622-3" alt="FastAPI Logo" class="service-badge">
+        </div>
+        <div class="info-block">
+          <h3>API Status</h3>
+          <p>Live indicator (client-side check):</p>
+          <p id="api-status">Checking...</p>
+        </div>
+      </aside>
+
+    </main>
+
+    <hr class="divider-bottom">
+
+    <footer>
+      <p>© 2026 JestingDart4369 • novaroma-homelab.uk</p>
+      <nav class="footer-nav">
+        <a href="https://github.com/JestingDart4369" target="_blank" rel="noopener">Github</a>
+        <a href="Projects.html">Projects</a>
+        <a href="#top">Top</a>
+      </nav>
+    </footer>
+
+    <script>
+      document.getElementById('menu-btn').addEventListener('click', () => {
+        document.getElementById('nav-links').classList.toggle('open');
+      });
+
+      fetch('/api/check-health')
+        .then(res => {
+          document.getElementById('api-status').textContent =
+            res.ok ? 'Online — API responding: ' + res.status : 'Offline';
+        })
+        .catch(() => {
+          document.getElementById('api-status').textContent = 'Offline';
+        });
+    </script>
+
+  </body>
+</html>

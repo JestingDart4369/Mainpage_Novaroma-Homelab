@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JestingDart4369 — Portfolio, Projects und Software Experimente" />
+    <meta name="author" content="JestingDart4369" />
+    <title>Novaroma | Projects</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/favicon.ico?v=20260622-3" />
+  </head>
+  <body>    
+    <header>
+        <a href="index.html">
+            <img src="assets/nova-roma-logo.png?v=20260622-3" alt="Novaroma Logo" class="website-logo">
+        </a>
+        <div class="website-title">
+            <h1>JestingDart4369</h1>
+            <p>novaroma-homelab.uk</p>
+        </div>
+        <nav>
+            <button class="hamburger-menu" id="menu-btn"></button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="Projects.html" class="active">Projects</a></li>
+                <li><a href="Activity.html">Activity</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="https://github.com/JestingDart4369" target="_blank" rel="noopener">Github</a></li>
+            </ul>
+        </nav>
+        <a href="https://api.novaroma-homelab.uk" class="btn-api" target="_blank" rel="noopener">Open Api</a>
+    </header>
+    <hr class="divider-header">
+    <main>
+ 
+      <!-- Projects Grid (links) -->
+      <section class="projects-section">
+        <div class="projects-header">
+          <h2>Projects</h2>
+          <p>
+            This page collects the projects I have built, maintained, or contributed to. Most of them started as a practical problem I wanted to solve. Each project is self-hosted where possible, deployed via Docker and exposed through Cloudflare Tunnel. The code is written primarily in Python and JavaScript, with a focus on readability. Some projects are still actively developed, others are stable and running in the background. A few are experiments that never made it past a weekend — those usually taught me the most. Where a project is public, the GitHub link takes you directly to the repository. Everything here reflects how I actually work, not how I would like to appear to work.
+          </p>
+        </div>
+ 
+        <div class="projects-grid">
+ 
+          <div class="project-card">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Dashboard</span>
+            <h3>Python Panel</h3>
+            <p>A Python-based dashboard/tooling project — one place for utilities and quick info, built for daily workflows.</p>
+            <p class="card-stats">⭐ — stars &nbsp; ⑂ — forks &nbsp; ⚑ — issues</p>
+            <a href="https://github.com/JestingDart4369/Python_Panel" target="_blank" class="btn-secondary">Repo</a>
+          </div>
+ 
+          <div class="project-card">
+            <span class="card-tag">Learning</span>
+            <span class="card-tag">French</span>
+            <h3>Französisch Quiz</h3>
+            <p>A French quiz tool for practice and repetition. Repo lives under a different GitHub account.</p>
+            <p class="card-stats">⭐ — stars &nbsp; ⑂ — forks &nbsp; ⚑ — issues</p>
+            <a href="https://github.com/C-Kaenel/Franzoesisch-Quiz" target="_blank" class="btn-secondary">Repo</a>
+          </div>
+ 
+          <div class="project-card">
+            <span class="card-tag">Backend</span>
+            <span class="card-tag">API</span>
+            <h3>Api_Novaroma-Homelab</h3>
+            <p>The backend API for NovaRoma. Designed for clean endpoints, predictable behavior, and easy deployments.</p>
+            <p class="card-stats">⭐ — stars &nbsp; ⑂ — forks &nbsp; ⚑ — issues</p>
+            <a href="https://github.com/JestingDart4369/Api_Novaroma-Homelab" target="_blank" class="btn-secondary">Repo</a>
+            <a href="https://api.novaroma-homelab.uk" target="_blank" class="btn-secondary">Live API</a>
+          </div>
+ 
+          <div class="project-card">
+            <span class="card-tag">Profile</span>
+            <h3>GitHub</h3>
+            <p>Everything else I'm working on: experiments, tools, and side projects.</p>
+            <p class="card-stats">⭐ — total stars &nbsp; ⑂ — total forks</p>
+            <a href="https://github.com/JestingDart4369" target="_blank" rel="noopener" class="btn-secondary">Open Profile</a>
+          </div>
+ 
+        </div>
+      </section>
+ 
+      <!-- Aside (rechts) -->
+      <aside class="info-panel">
+        <div class="info-block">
+          <h3>Now</h3>
+          <p>Building and deploying small services under one domain (Cloudflare Tunnel + Docker).</p>
+        </div>
+        <div class="info-block">
+          <h3>Stack</h3>
+          <p>Mostly self-hosted workflows and clean, maintainable code.</p>
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Cloudflare Tunnel</span>
+            <span class="tag">Js/HTML</span>
+            <span class="tag">Python</span>
+            <img src="assets/fastapi-badge.png?v=20260622-3" alt="The FastAPI Logo" class="tag-icon">
+          </div>
+        </div>
+      </aside>
+ 
+    </main>
+    <hr class="divider-bottom">
+    <footer>
+        <p>© 2026 JestingDart4369 • novaroma-homelab.uk</p>
+        <nav class="footer-nav">
+            <a href="https://github.com/JestingDart4369" target="_blank" rel="noopener">Github</a>
+            <a href="Projects.html">Projects</a>
+            <a href="#Top">Top</a>
+        </nav>
+    </footer>
+
+    
+    <script>
+    // Hamburger Menu
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+  </script>

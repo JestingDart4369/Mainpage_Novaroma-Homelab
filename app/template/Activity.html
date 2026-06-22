@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JestingDart4369 — Portfolio, Projects und Software Experimente" />
+    <meta name="author" content="JestingDart4369" />
+    <title>Novaroma | Activity</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/favicon.ico?v=20260622-3"/>
+    <link rel="preconnect" href="https://github.com" />
+  </head>
+  <body>    
+    <header>
+        <a href="index.html">
+            <img src="assets/nova-roma-logo.png?v=20260622-3" alt="Novaroma Logo" class="website-logo">
+        </a>
+        <div class="website-title">
+            <h1>JestingDart4369</h1>
+            <p>novaroma-homelab.uk</p>
+        </div>
+        <nav>
+            <button class="hamburger-menu" id="menu-btn"></button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="Projects.html">Projects</a></li>
+                <li><a href="Activity.html" class="active">Activity</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="https://github.com/JestingDart4369" target="_blank" rel="noopener">Github</a></li>
+            </ul>
+        </nav>
+        <a href="https://api.novaroma-homelab.uk" class="btn-api" target="_blank" rel="noopener">Open Api</a>
+      </header>
+    <hr class="divider-header">
+    <main>
+    
+      <section class="activity-section">
+        <div class="activity-text">
+        <h2>Latest commits</h2>
+        <p>This page shows my latest Git commits pulled live from GitHub. The commits are fetched through the cached Novaroma GitHub API proxy across my active repositories. Each entry shows the repository name and the most recent commit message. This gives a real-time snapshot of what I am currently working on. The three repositories shown are Python Panel, Französisch Quiz, and the NovaRoma API. If the API is unavailable, a cached fallback snapshot is used instead. New commits appear automatically without any manual update needed. You can click the button below to open my full GitHub profile.</p>
+ 
+        <div class="activity-repo-tabs">
+            <p>Showing Latest Commits from</p>
+            <div class="repo-tab">
+          <span class="repo-tab">Python Panel</span>
+          </div>
+          <div class="repo-tab">
+          <span class="repo-tab">Französisch Quiz</span>
+          </div>
+          <div class="repo-tab">
+          <span class="repo-tab">NovaRoma API</span>
+            </div>
+        </div>
+        </div>
+        <div class="activity-commits">
+        <div class="commit-list" id="commit-list">
+          <p class="loading-msg">Loading...</p>
+        </div>
+ 
+        <a href="https://github.com/JestingDart4369" target="_blank" rel="noopener" class="btn-secondary">Open GitHub Profile</a>
+        </div>
+      </section>
+ 
+      <aside class="activity-aside">
+        <div class="activity-profile">
+        <img src="assets/profile.jpeg?v=20260622-3" alt="Profilbild JestingDart4369" class="profile-pic">
+        <p class="profile-desc">
+          🐍 Python &amp; C# developer —
+          IMS Baden student building CLI tools, automation scripts, and API projects.
+        </p>
+        </div>
+        <div class="techstack-block">
+          <h3>Techstack</h3>
+          <p>Mostly self-hosted workflows and clean, maintainable code.</p>
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Cloudflare Tunnel</span>
+            <span class="tag">Js/HTML</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+    <hr class="divider-bottom">
+    <footer>
+        <p>© 2026 JestingDart4369 • novaroma-homelab.uk</p>
+        <nav class="footer-nav">
+            <a href="https://github.com/JestingDart4369" target="_blank" rel="noopener">Github</a>
+            <a href="Projects.html">Projects</a>
+            <a href="#Top">Top</a>
+        </nav>
+    </footer>
+
+    
+    <script>
+    // Hamburger Menu
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('open');
+      document.getElementById('menu-btn').classList.toggle('open');
+    });
+    // GitHub Commits laden
+      const repos = [
+        'JestingDart4369/Python_Panel',
+        'C-Kaenel/Franzoesisch-Quiz',
+        'JestingDart4369/Api_Novaroma-Homelab'
+      ];
+ 
+      async function loadCommits() {
+        const list = document.getElementById('commit-list');
+        list.innerHTML = '';
+ 
+        for (const repo of repos) {
+          try {
+            const res = await fetch(`/github/repos/${repo}/commits?per_page=3`);
+            if (!res.ok) throw new Error();
+            const commits = await res.json();
+ 
+            commits.forEach(c => {
+              const item = document.createElement('div');
+              item.className = 'commit-item';
+              item.innerHTML = `
+                <p class="commit-repo">${repo.split('/')[1]}</p>
+                <p class="commit-msg">${c.commit.message.split('\n')[0]}</p>
+              `;
+              list.appendChild(item);
+            });
+          } catch {
+            const item = document.createElement('div');
+            item.className = 'commit-item';
+            item.innerHTML = `<p class="commit-repo">${repo.split('/')[1]}</p><p class="commit-msg">Could not load commits.</p>`;
+            list.appendChild(item);
+          }
+        }
+      }
+ 
+      loadCommits();
+  </script>
