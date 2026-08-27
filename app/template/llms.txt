@@ -1,0 +1,26 @@
+# Novaroma Homelab
+
+> Personal portfolio, projects, and self-hosted homelab showcase by JestingDart4369.
+
+Novaroma Homelab documents practical software projects, APIs, small systems, and self-hosted infrastructure using Docker and Cloudflare Tunnel.
+
+## Main pages
+
+- [Home](https://novaroma-homelab.uk/) - Overview of the portfolio and homelab showcase.
+- [Portfolio](https://novaroma-homelab.uk/portfolio.html) - Personal portfolio and profile information.
+- [Projects](https://novaroma-homelab.uk/Projects.html) - Project overview and software experiments.
+- [Activity](https://novaroma-homelab.uk/Activity.html) - Latest activity and GitHub-related updates.
+- [Services](https://novaroma-homelab.uk/Services.html) - Public services and API information.
+
+## API
+
+- [Novaroma API](https://api.novaroma-homelab.uk/) - Public API subdomain for dynamic services.
+
+## Owner
+
+- GitHub: [JestingDart4369](https://github.com/JestingDart4369)
+
+## Notes for agents
+
+- Use the canonical root domain `https://novaroma-homelab.uk/`.
+- Do not crawl private/disallowed paths such as `/svenja/` or `/svenja2/` unless explicitly permitted.
