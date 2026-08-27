@@ -1,8 +1,8 @@
-# Novaroma Homelab
+# Novaroma-Homelab
 
-> Personal portfolio, projects, and self-hosted homelab showcase by JestingDart4369.
+> Public project/portfolio and self-hosted homelab showcase. Owner: JestingDart4369.
 
-Novaroma Homelab documents practical software projects, APIs, small systems, and self-hosted infrastructure using Docker and Cloudflare Tunnel.
+Novaroma-Homelab documents practical software projects, APIs, small systems, and self-hosted infrastructure using Docker and Cloudflare Tunnel.
 
 ## Main pages
 
