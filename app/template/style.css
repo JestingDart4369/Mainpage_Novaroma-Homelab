@@ -711,3 +711,48 @@ footer {
     justify-content: center;
   }
 }
+/* Interaction states: default / hover / focus / active / disabled */
+a:focus-visible,
+button:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-api:focus-visible,
+.footer-nav a:focus-visible,
+.nav-links a:focus-visible,
+.hamburger-menu:focus-visible,
+.footer-copy:focus-visible {
+  outline: 3px solid var(--main);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+a:active,
+button:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-api:active,
+.footer-nav a:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+.hamburger-menu:hover,
+button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  opacity: 0.5;
+  filter: grayscale(1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Hidden seasons toggle lives on the footer copyright line: looks like plain text */
+.footer-copy {
+  cursor: default;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
