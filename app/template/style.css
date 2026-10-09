@@ -732,13 +732,20 @@ button:active,
 .btn-secondary:active,
 .btn-api:active,
 .footer-nav a:active {
-  transform: translateY(1px);
-  opacity: 0.85;
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+.hamburger-menu:hover,
+button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
 }
 
 button:disabled,
 [aria-disabled="true"] {
   opacity: 0.5;
+  filter: grayscale(1);
   cursor: not-allowed;
   pointer-events: none;
 }
