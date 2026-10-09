@@ -1,0 +1,38 @@
+/* Seasons mode — only active when <html data-season="..."> is set by seasons.js */
+
+html[data-season] body { transition: background-color .6s, color .6s; }
+
+html[data-season="spring"] { --bg: #f3faf1; --main: #2f5d3a; --text: #14301b; --accent: #f9d9e4; --muted: #7fa38a; }
+html[data-season="summer"] { --bg: #fffbe8; --main: #8a4b08; --text: #3d2102; --accent: #ffe08a; --muted: #c4975a; }
+html[data-season="autumn"] { --bg: #fbf3e6; --main: #7a3410; --text: #3a1706; --accent: #f1c58b; --muted: #b58a63; }
+html[data-season="winter"] { --bg: #eef4fb; --main: #25415f; --text: #0f2236; --accent: #cfe2f5; --muted: #7f97b2; }
+
+#season-fx {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.season-badge {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  padding: .35rem .8rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--text);
+  font-size: .8rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  opacity: 0;
+  transition: opacity .4s;
+  pointer-events: none;
+}
+.season-badge.show { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  #season-fx { display: none; }
+}
