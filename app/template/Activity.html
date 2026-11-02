@@ -130,6 +130,20 @@
         'JestingDart4369/Api_Novaroma-Homelab'
       ];
  
+      function commitItem(repo, message) {
+        const item = document.createElement('div');
+        item.className = 'commit-item';
+        const name = document.createElement('p');
+        name.className = 'commit-repo';
+        name.textContent = repo.split('/')[1];
+        const text = document.createElement('p');
+        text.className = 'commit-msg';
+        text.textContent = message;
+        item.appendChild(name);
+        item.appendChild(text);
+        return item;
+      }
+
       async function loadCommits() {
         const list = document.getElementById('commit-list');
         list.innerHTML = '';
@@ -141,19 +155,10 @@
             const commits = await res.json();
  
             commits.forEach(c => {
-              const item = document.createElement('div');
-              item.className = 'commit-item';
-              item.innerHTML = `
-                <p class="commit-repo">${repo.split('/')[1]}</p>
-                <p class="commit-msg">${c.commit.message.split('\n')[0]}</p>
-              `;
-              list.appendChild(item);
+              list.appendChild(commitItem(repo, c.commit.message.split('\n')[0]));
             });
           } catch {
-            const item = document.createElement('div');
-            item.className = 'commit-item';
-            item.innerHTML = `<p class="commit-repo">${repo.split('/')[1]}</p><p class="commit-msg">Could not load commits.</p>`;
-            list.appendChild(item);
+            list.appendChild(commitItem(repo, 'Could not load commits.'));
           }
         }
       }

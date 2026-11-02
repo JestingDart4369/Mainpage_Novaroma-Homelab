@@ -1,0 +1,111 @@
+$ NGINX_BIN=/home/hermes/.hermes/cache/scratch/novaroma-security-tools/root/usr/sbin/nginx python -m unittest discover -s tests -p test_security.py -v && node --test tests/activity-security.test.js && git diff --check
+test_blank_links_explicitly_disown_opener (test_security.ContentSecurity.test_blank_links_explicitly_disown_opener) ... ok
+test_build_context_and_git_ignore_environment_variants_and_keys (test_security.ContentSecurity.test_build_context_and_git_ignore_environment_variants_and_keys) ... ok
+test_csp_pins_every_inline_script_including_json_ld (test_security.ContentSecurity.test_csp_pins_every_inline_script_including_json_ld) ... ok
+nginx: the configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-hwhj_t0o/nginx.conf syntax is ok
+nginx: configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-hwhj_t0o/nginx.conf test is successful
+test_csp_enforced_without_changing_unknown_svenja_policy (test_security.NginxSecurity.test_csp_enforced_without_changing_unknown_svenja_policy) ... ok
+test_github_proxy_rejects_non_public_routes_and_write_methods (test_security.NginxSecurity.test_github_proxy_rejects_non_public_routes_and_write_methods) ... ok
+test_github_proxy_strips_credentials_and_upstream_cookie (test_security.NginxSecurity.test_github_proxy_strips_credentials_and_upstream_cookie) ... ok
+test_github_untrusted_tls_certificate_is_rejected (test_security.NginxSecurity.test_github_untrusted_tls_certificate_is_rejected) ... ok
+test_github_upstream_tls_is_verified (test_security.NginxSecurity.test_github_upstream_tls_is_verified) ... ok
+test_security_headers_survive_locations_errors_redirects_and_304 (test_security.NginxSecurity.test_security_headers_survive_locations_errors_redirects_and_304) ... ok
+test_sensitive_files_never_served_even_if_accidentally_copied (test_security.NginxSecurity.test_sensitive_files_never_served_even_if_accidentally_copied) ... ok
+2026/11/02 10:50:49 [notice] 52799#52799: signal process started
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.448s
+
+OK
+TAP version 13
+# Subtest: GitHub commit messages are rendered as literal text, never parsed HTML
+ok 1 - GitHub commit messages are rendered as literal text, never parsed HTML
+  ---
+  duration_ms: 3.779636
+  type: 'test'
+  ...
+# Subtest: failed GitHub requests retain the existing fallback message and CSS classes
+ok 2 - failed GitHub requests retain the existing fallback message and CSS classes
+  ---
+  duration_ms: 1.054514
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 102.600961
+Exit code: 0
+
+$ NGINX_BIN=/home/hermes/.hermes/cache/scratch/novaroma-security-tools/root/usr/sbin/nginx PLAYWRIGHT_BROWSERS_PATH=/home/hermes/.hermes/cache/scratch/novaroma-security-tools/browsers /home/hermes/.hermes/cache/scratch/novaroma-security-tools/venv/bin/python tests/browser_security.py
+nginx: the configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-33jqr1ui/nginx.conf syntax is ok
+nginx: configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-33jqr1ui/nginx.conf test is successful
+PASS index.html: pixel-identical baseline, assets/CSS, interactions, seasons, CSP enforcement
+PASS portfolio.html: pixel-identical baseline, assets/CSS, interactions, seasons, CSP enforcement
+PASS Projects.html: pixel-identical baseline, assets/CSS, interactions, seasons, CSP enforcement
+PASS Activity.html: pixel-identical baseline, assets/CSS, interactions, seasons, CSP enforcement
+PASS Services.html: pixel-identical baseline, assets/CSS, interactions, seasons, CSP enforcement
+PASS missing: pixel-identical baseline, assets/CSS, interactions, seasons, CSP enforcement
+2026/11/02 10:51:06 [notice] 53328#53328: signal process started
+Exit code: 0
+
+Independent-review correction: .p12/.pfx deny coverage
+
+RED (new synthetic canaries added before nginx regex change):
+$ NGINX_BIN=/home/hermes/.hermes/cache/scratch/novaroma-security-tools/root/usr/sbin/nginx python -m unittest discover -s tests -p test_security.py -k test_sensitive_files_never_served_even_if_accidentally_copied -v
+nginx: the configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-w5ivyifs/nginx.conf syntax is ok
+nginx: configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-w5ivyifs/nginx.conf test is successful
+Both subtests failed with AssertionError: 200 not found in (403, 404):
+  path='/test-credential.p12'
+  path='/test-credential.pfx'
+Ran 1 test in 0.551s
+FAILED (failures=2)
+Exit code: 1
+
+GREEN (after adding only p12|pfx to the sensitive-suffix deny regex):
+$ NGINX_BIN=/home/hermes/.hermes/cache/scratch/novaroma-security-tools/root/usr/sbin/nginx python -m unittest discover -s tests -p test_security.py -v && node --test tests/activity-security.test.js && git diff --check
+test_blank_links_explicitly_disown_opener (test_security.ContentSecurity.test_blank_links_explicitly_disown_opener) ... ok
+test_build_context_and_git_ignore_environment_variants_and_keys (test_security.ContentSecurity.test_build_context_and_git_ignore_environment_variants_and_keys) ... ok
+test_csp_pins_every_inline_script_including_json_ld (test_security.ContentSecurity.test_csp_pins_every_inline_script_including_json_ld) ... ok
+nginx: the configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-5fsuwdcc/nginx.conf syntax is ok
+nginx: configuration file /home/hermes/.hermes/cache/scratch/novaroma-nginx-5fsuwdcc/nginx.conf test is successful
+test_csp_enforced_without_changing_unknown_svenja_policy (test_security.NginxSecurity.test_csp_enforced_without_changing_unknown_svenja_policy) ... ok
+test_github_proxy_rejects_non_public_routes_and_write_methods (test_security.NginxSecurity.test_github_proxy_rejects_non_public_routes_and_write_methods) ... ok
+test_github_proxy_strips_credentials_and_upstream_cookie (test_security.NginxSecurity.test_github_proxy_strips_credentials_and_upstream_cookie) ... ok
+test_github_untrusted_tls_certificate_is_rejected (test_security.NginxSecurity.test_github_untrusted_tls_certificate_is_rejected) ... ok
+test_github_upstream_tls_is_verified (test_security.NginxSecurity.test_github_upstream_tls_is_verified) ... ok
+test_security_headers_survive_locations_errors_redirects_and_304 (test_security.NginxSecurity.test_security_headers_survive_locations_errors_redirects_and_304) ... ok
+test_sensitive_files_never_served_even_if_accidentally_copied (test_security.NginxSecurity.test_sensitive_files_never_served_even_if_accidentally_copied) ... ok
+2026/11/02 11:05:25 [notice] 63284#63284: signal process started
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.260s
+
+OK
+TAP version 13
+# Subtest: GitHub commit messages are rendered as literal text, never parsed HTML
+ok 1 - GitHub commit messages are rendered as literal text, never parsed HTML
+  ---
+  duration_ms: 3.876068
+  type: 'test'
+  ...
+# Subtest: failed GitHub requests retain the existing fallback message and CSS classes
+ok 2 - failed GitHub requests retain the existing fallback message and CSS classes
+  ---
+  duration_ms: 1.035408
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 88.922169
+Exit code: 0

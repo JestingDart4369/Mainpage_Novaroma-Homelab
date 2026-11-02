@@ -31,8 +31,12 @@ run.bat
 run.sh
 
 # Environment
-.env
-.env.local
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
 
 # Logs
 *.log
