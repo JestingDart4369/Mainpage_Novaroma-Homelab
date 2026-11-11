@@ -64,6 +64,26 @@ def tabs_html():
     return '\n'.join(f'          <span class="repo-tab">{E(r["tabLabel"])}</span>' for r in DATA['repos'])
 
 
+# GitHub Pages cannot set response headers, so the policy also ships as a <meta> tag.
+CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; "
+       "img-src 'self' https://novaroma-homelab.uk; connect-src 'self' https://api.novaroma-homelab.uk; "
+       "object-src 'none'; base-uri 'none'; form-action 'self'")
+CSP_START, CSP_END = '<!-- sync:csp:start -->', '<!-- sync:csp:end -->'
+
+
+def csp_block():
+    return f'{CSP_START}\n    <meta http-equiv="Content-Security-Policy" content="{html.escape(CSP, quote=False)}" />\n    {CSP_END}'
+
+
+def with_csp(text):
+    if CSP_START in text:
+        return re.sub(re.escape(CSP_START) + r'.*?' + re.escape(CSP_END), lambda _: csp_block(), text, count=1, flags=re.S)
+    charset = re.search(r'<meta charset="[^"]*"\s*/?>', text)
+    if not charset:
+        raise SystemExit('no <meta charset> to anchor the CSP tag')
+    return text[:charset.end()] + '\n    ' + csp_block() + text[charset.end():]
+
+
 def nginx_regex():
     owners = {}
     for r in DATA['repos']:
@@ -85,6 +105,7 @@ def render():
         text = path.read_text(encoding='utf-8')
         new = re.sub(r'(<div class="tags" data-sync="stack">)\n.*?\n(\s*</div>)',
                      lambda m: f'{m.group(1)}\n{stack_html(12)}\n{m.group(2)}', text, flags=re.S)
+        new = with_csp(new)
         if path.name == 'Projects.html':
             new = between(new, '<!-- sync:projects:start -->', '<!-- sync:projects:end -->', card_html().rstrip('\n'))
         if path.name == 'Activity.html':

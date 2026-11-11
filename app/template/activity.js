@@ -32,31 +32,54 @@
     });
   }
 
-  async function loadCommits() {
-    var list = document.getElementById('commit-list');
-    var repos;
-    try {
-      var res = await fetch('/site-data.json');
-      if (!res.ok) throw new Error('site data request failed');
-      repos = (await res.json()).repos.map(function (r) { return r.owner + '/' + r.name; });
-    } catch (e) {
-      list.innerHTML = '';
-      list.appendChild(commitItem('github', 'Could not load commits.'));
-      return;
-    }
-    var results = await Promise.all(repos.map(function (repo) {
-      return fetchRepo(repo).catch(function () { return { failed: repo }; });
-    }));
+  function render(list, commits, failed) {
     list.innerHTML = '';
-    var commits = [];
-    results.forEach(function (r) {
-      if (r.failed) list.appendChild(commitItem(r.failed, 'Could not load commits.'));
-      else commits = commits.concat(r);
-    });
+    failed.forEach(function (repo) { list.appendChild(commitItem(repo, 'Could not load commits.')); });
     commits.sort(function (a, b) { return b.when < a.when ? -1 : b.when > a.when ? 1 : 0; });
     commits.slice(0, MAX_ITEMS).forEach(function (c) {
       list.appendChild(commitItem(c.repo, c.message, formatDate(c.when)));
     });
+  }
+
+  // Static hosting: commits.json is rebuilt hourly by the Pages workflow.
+  async function loadSnapshot() {
+    var res = await fetch('/commits.json');
+    if (!res.ok) throw new Error('no snapshot');
+    var snap = await res.json();
+    return { commits: snap.commits, failed: snap.failed || [] };
+  }
+
+  // nginx deployment: live commits through the cached GitHub proxy.
+  async function loadLive() {
+    var res = await fetch('/site-data.json');
+    if (!res.ok) throw new Error('site data request failed');
+    var repos = (await res.json()).repos.map(function (r) { return r.owner + '/' + r.name; });
+    var results = await Promise.all(repos.map(function (repo) {
+      return fetchRepo(repo).catch(function () { return { failed: repo }; });
+    }));
+    var commits = [], failed = [];
+    results.forEach(function (r) {
+      if (r.failed) failed.push(r.failed);
+      else commits = commits.concat(r);
+    });
+    return { commits: commits, failed: failed };
+  }
+
+  async function loadCommits() {
+    var list = document.getElementById('commit-list');
+    var data;
+    try {
+      data = await loadSnapshot();
+    } catch (e) {
+      try {
+        data = await loadLive();
+      } catch (err) {
+        list.innerHTML = '';
+        list.appendChild(commitItem('github', 'Could not load commits.'));
+        return;
+      }
+    }
+    render(list, data.commits, data.failed);
   }
 
   function init() {

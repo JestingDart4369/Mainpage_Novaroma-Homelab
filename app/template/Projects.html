@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- sync:csp:start -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://novaroma-homelab.uk; connect-src 'self' https://api.novaroma-homelab.uk; object-src 'none'; base-uri 'none'; form-action 'self'" />
+    <!-- sync:csp:end -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Projects, software experiments, and homelab builds from Novaroma-Homelab." />
     <meta name="author" content="JestingDart4369" />
@@ -32,6 +35,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="seasons.css" />
     <script src="seasons.js"></script>
+    <script src="site.js" defer></script>
   </head>
   <body>    
     <header>
@@ -208,9 +212,3 @@
     </footer>
 
     
-    <script>
-    // Hamburger Menu
-    document.getElementById('menu-btn').addEventListener('click', () => {
-      document.getElementById('nav-links').classList.toggle('open');
-    });
-  </script>
