@@ -9,7 +9,7 @@ const script = fs.readFileSync(path.join(__dirname, '../app/template/activity.js
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, '../app/template/site-data.json'), 'utf8'));
 const repoCount = data.repos.length;
 
-async function render(message, { fail = false } = {}) {
+async function render(message, { fail = false, snapshot = null } = {}) {
   const writes = [];
   const requested = [];
   function element(tag) {
@@ -29,6 +29,7 @@ async function render(message, { fail = false } = {}) {
     },
     fetch: async url => {
       requested.push(url);
+      if (url === '/commits.json') return snapshot ? { ok: true, json: async () => snapshot } : { ok: false };
       if (url === '/site-data.json') return { ok: true, json: async () => data };
       return { ok: !fail, json: async () => [{ commit: { message, committer: { date: '2026-11-01T10:00:00Z' } } }] };
     },
@@ -40,7 +41,7 @@ async function render(message, { fail = false } = {}) {
 
 test('every repo in site-data.json is queried, not a hardcoded subset', async () => {
   const { requested } = await render('hello');
-  const commitRequests = requested.filter(u => u.includes('/commits'));
+  const commitRequests = requested.filter(u => u.includes('/commits?'));
   assert.equal(commitRequests.length, repoCount);
   for (const r of data.repos) {
     assert.ok(commitRequests.some(u => u.startsWith(`/github/repos/${r.owner}/${r.name}/commits`)), r.name);
@@ -66,4 +67,18 @@ test('failed GitHub requests retain the existing fallback message and CSS classe
     assert.equal(item.children[0].className, 'commit-repo');
     assert.equal(item.children[1].textContent, 'Could not load commits.');
   }
+});
+
+test('static hosting: renders the commits.json snapshot newest first without hitting the proxy', async () => {
+  const snapshot = { commits: [
+    { repo: 'o/old', message: 'old', when: '2026-01-01T00:00:00Z' },
+    { repo: 'o/new', message: '<b>new</b>', when: '2026-02-01T00:00:00Z' },
+  ], failed: ['o/down'] };
+  const { list, writes, requested } = await render('unused', { snapshot });
+  assert.deepEqual(requested, ['/commits.json']);
+  assert.deepEqual(writes, []);
+  assert.equal(list.children.length, 3);
+  assert.equal(list.children[0].children[1].textContent, 'Could not load commits.');
+  assert.equal(list.children[1].children[1].textContent, '<b>new</b>');
+  assert.equal(list.children[2].children[1].textContent, 'old');
 });

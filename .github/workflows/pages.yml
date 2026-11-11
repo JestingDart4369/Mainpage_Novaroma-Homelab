@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 * * * *'   # refresh the commit snapshot hourly
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check generated files are in sync with site-data.json
+        run: python3 scripts/sync_site.py --check
+
+      - name: Run tests
+        run: |
+          node --test tests/activity-security.test.js
+          python3 -m unittest tests.test_security tests.test_site
+
+      - name: Build site
+        run: |
+          mkdir _site
+          cp -r app/template/. _site/
+          python3 scripts/fetch_commits.py _site/commits.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
