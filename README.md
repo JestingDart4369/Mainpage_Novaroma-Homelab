@@ -46,3 +46,13 @@ Then open <http://localhost:8000>.
 Production URL: <https://novaroma-homelab.uk>
 
 The container is intended to run on the shared Docker Compose network with Cloudflare Tunnel pointing to `novaroma-mainpage:8000`.
+
+## Editing projects and tech stack
+
+`app/template/site-data.json` is the single source of truth for the tech stack, the Projects cards, the Activity repo tabs/commit feeds and the nginx allowlist for public GitHub commit feeds. Edit it, then run:
+
+```
+python3 scripts/sync_site.py
+```
+
+The static HTML and `nginx/default.conf` are regenerated from it (`--check` fails if they drift, and the test suite runs that check).
