@@ -23,4 +23,3 @@ Novaroma-Homelab documents practical software projects, APIs, small systems, and
 ## Notes for agents
 
 - Use the canonical root domain `https://novaroma-homelab.uk/`.
-- Do not crawl private/disallowed paths such as `/svenja/` or `/svenja2/` unless explicitly permitted.

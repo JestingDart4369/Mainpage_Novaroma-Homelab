@@ -116,8 +116,6 @@ class NginxSecurity(unittest.TestCase):
             target = cls.web / name
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text('TEST_CANARY_NOT_A_SECRET')
-        (cls.web / 'svenja').mkdir(exist_ok=True)
-        (cls.web / 'svenja/index.html').write_text('<script>window.legacy=true</script>')
         cls.http = ThreadingHTTPServer(('127.0.0.1', 0), Upstream)
         cls.https = TLSUpstream(('127.0.0.1', 0), Upstream)
         key, cert = cls.base / 'key.pem', cls.base / 'cert.pem'
@@ -140,7 +138,6 @@ class NginxSecurity(unittest.TestCase):
         config = config.replace('/var/cache/nginx/github_api_cache', str(cls.base / 'cache'))
         config = config.replace('/etc/nginx/snippets/', str(ROOT / 'nginx') + '/')
         config = config.replace('http://api:8080', f'http://127.0.0.1:{cls.http.server_port}')
-        config = config.replace('http://svenja-game-v2:5000', f'http://127.0.0.1:{cls.http.server_port}')
         config = config.replace('https://api.github.com', f'https://127.0.0.1:{cls.https.server_port}')
         config = config.replace('/etc/ssl/certs/ca-certificates.crt', str(cert))
         mime = Path(os.environ.get('NGINX_MIME_TYPES', '/etc/nginx/mime.types'))
@@ -176,7 +173,7 @@ class NginxSecurity(unittest.TestCase):
 
     def test_security_headers_survive_locations_errors_redirects_and_304(self):
         for path in ['/', '/health', '/llms.txt', '/favicon.ico', '/assets/nova-roma-logo.png',
-                     '/api/check-health', '/missing', '/svenja', '/svenja/bibliothek/library/covers/test.png']:
+                     '/api/check-health', '/missing']:
             with self.subTest(path=path):
                 _, headers, _ = self.request(path)
                 self.assertEqual(headers.get('x-content-type-options'), 'nosniff')
@@ -189,7 +186,7 @@ class NginxSecurity(unittest.TestCase):
         self.assertEqual(status, 304)
         self.assertIn('content-security-policy', cached_headers)
 
-    def test_csp_enforced_without_changing_unknown_svenja_policy(self):
+    def test_csp_enforced_on_every_page(self):
         for path in ['/', '/Activity.html', '/404.html', '/missing']:
             _, headers, _ = self.request(path)
             policy = headers.get('content-security-policy', '')
@@ -198,8 +195,6 @@ class NginxSecurity(unittest.TestCase):
             self.assertIn("base-uri 'none'", policy)
             self.assertIn("frame-ancestors 'self'", policy)
             self.assertNotIn("'unsafe-inline'", policy)
-        _, headers, _ = self.request('/svenja/')
-        self.assertNotIn('content-security-policy', headers)
 
     def test_github_proxy_strips_credentials_and_upstream_cookie(self):
         REQUESTS.clear()

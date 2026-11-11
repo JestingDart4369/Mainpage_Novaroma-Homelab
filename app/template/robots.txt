@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /svenja/
-Disallow: /svenja2/
 
 Sitemap: https://novaroma-homelab.uk/sitemap.xml
