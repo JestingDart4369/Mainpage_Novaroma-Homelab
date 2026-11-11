@@ -1,0 +1,34 @@
+{
+  "stack": [
+    { "name": "Docker" },
+    { "name": "nginx" },
+    { "name": "Cloudflare Tunnel" },
+    { "name": "Python" },
+    { "name": "FastAPI", "icon": "assets/fastapi-badge.png?v=20260622-3", "width": 80, "height": 29 },
+    { "name": "JavaScript / HTML / CSS" },
+    { "name": "C#" },
+    { "name": "C++ / Arduino" },
+    { "name": "PowerShell" },
+    { "name": "VS Code extensions" },
+    { "name": "GitHub Actions" }
+  ],
+  "repos": [
+    { "owner": "JestingDart4369", "name": "Python_Panel", "title": "Python Panel", "tabLabel": "Python Panel", "tags": ["Python", "Dashboard"], "description": "A Python-based dashboard/tooling project — one place for utilities and quick info, built for daily workflows.", "links": [{ "label": "Repo" }] },
+    { "owner": "C-Kaenel", "name": "Franzoesisch-Quiz", "title": "Französisch Quiz", "tabLabel": "Französisch Quiz", "tags": ["Learning", "French"], "description": "A French quiz tool for practice and repetition. Repo lives under a different GitHub account.", "links": [{ "label": "Repo" }] },
+    { "owner": "JestingDart4369", "name": "Api_Novaroma-Homelab", "title": "Api_Novaroma-Homelab", "tabLabel": "NovaRoma API", "tags": ["Backend", "API"], "description": "The backend API for NovaRoma. Designed for clean endpoints, predictable behavior, and easy deployments.", "links": [{ "label": "Repo" }, { "label": "Live API", "url": "https://api.novaroma-homelab.uk" }] },
+    { "owner": "JestingDart4369", "name": "Mainpage_Novaroma-Homelab", "title": "Mainpage_Novaroma-Homelab", "tabLabel": "Mainpage", "tags": ["Website", "HTML"], "description": "The source of this very site: a static page served by nginx in Docker, with a hidden seasons mode.", "links": [{ "label": "Repo" }] },
+    { "owner": "JestingDart4369", "name": "novaroma-vscode", "title": "novaroma-vscode", "tabLabel": "Novaroma VS Code", "tags": ["VS Code", "Themes"], "description": "Colour themes, file and product icon themes and Markdown styling for VS Code, built from the Nova Roma design system, in five seasonal palettes.", "links": [{ "label": "Repo" }] },
+    { "owner": "JestingDart4369", "name": "lernatelier-checker-vscode", "title": "lernatelier-checker-vscode", "tabLabel": "Lernatelier Checker", "tags": ["VS Code", "Learning"], "description": "A VS Code extension that checks Lernatelier documentation (Lernperiode-N.md) for formal completeness while you write, with a status bar traffic light.", "links": [{ "label": "Repo" }] },
+    { "owner": "JestingDart4369", "name": "Lernatelier", "title": "Lernatelier", "tabLabel": "Lernatelier", "tags": ["Learning", "Python"], "description": "My Lernatelier learning periods: documentation, weather API experiments and small projects, with weekly branch rotation via GitHub Actions.", "links": [{ "label": "Repo" }] },
+    { "owner": "JestingDart4369", "name": "Discobox", "title": "Discobox", "tabLabel": "Discobox", "tags": ["Hardware", "Arduino"], "description": "A button-controlled party box for the Arduino Uno R4 WiFi: LED ring and strip effects, buzzer songs and MP3 playback. Work in progress.", "links": [{ "label": "Repo" }] },
+    { "owner": "JestingDart4369", "name": "Python-Comandline-tools", "title": "Python-Comandline-tools", "tabLabel": "Python CLI Tools", "tags": ["Python", "CLI"], "description": "A personal toolbox of Python utilities and learning projects, launched from one interactive command-line menu.", "links": [{ "label": "Repo" }] },
+    { "owner": "JestingDart4369", "name": "Ducky-script-public", "title": "Ducky-script-public", "tabLabel": "Ducky Script", "tags": ["Scripts", "Windows"], "description": "Public DuckyScript and PowerShell experiments.", "links": [{ "label": "Repo" }] }
+  ],
+  "profile": {
+    "tags": ["Profile"],
+    "title": "GitHub",
+    "description": "Everything else I'm working on: experiments, tools, and side projects.",
+    "url": "https://github.com/JestingDart4369",
+    "label": "Open Profile"
+  }
+}

@@ -61,19 +61,22 @@
       <section class="activity-section">
         <div class="activity-text">
         <h2>Latest commits</h2>
-        <p>This page shows my latest Git commits pulled live from GitHub. The commits are fetched through the cached Novaroma GitHub API proxy across my active repositories. Each entry shows the repository name and the most recent commit message. This gives a real-time snapshot of what I am currently working on. The three repositories shown are Python Panel, Französisch Quiz, and the NovaRoma API. If the API is unavailable, a cached fallback snapshot is used instead. New commits appear automatically without any manual update needed. You can click the button below to open my full GitHub profile.</p>
+        <p>This page shows my latest Git commits pulled live from GitHub. The commits are fetched through the cached Novaroma GitHub API proxy across all of my public projects listed below. Each entry shows the repository name, the date and the commit message, newest first. This gives a real-time snapshot of what I am currently working on. If GitHub is unavailable, the repository shows a short error message instead. New commits appear automatically without any manual update needed. You can click the button below to open my full GitHub profile.</p>
  
         <div class="activity-repo-tabs">
             <p>Showing Latest Commits from</p>
-            <div class="repo-tab">
+          <!-- sync:repo-tabs:start -->
           <span class="repo-tab">Python Panel</span>
-          </div>
-          <div class="repo-tab">
           <span class="repo-tab">Französisch Quiz</span>
-          </div>
-          <div class="repo-tab">
           <span class="repo-tab">NovaRoma API</span>
-            </div>
+          <span class="repo-tab">Mainpage</span>
+          <span class="repo-tab">Novaroma VS Code</span>
+          <span class="repo-tab">Lernatelier Checker</span>
+          <span class="repo-tab">Lernatelier</span>
+          <span class="repo-tab">Discobox</span>
+          <span class="repo-tab">Python CLI Tools</span>
+          <span class="repo-tab">Ducky Script</span>
+<!-- sync:repo-tabs:end -->
         </div>
         </div>
         <div class="activity-commits">
@@ -96,11 +99,18 @@
         <div class="techstack-block">
           <h3>Techstack</h3>
           <p>Mostly self-hosted workflows and clean, maintainable code.</p>
-          <div class="tags">
+          <div class="tags" data-sync="stack">
             <span class="tag">Docker</span>
+            <span class="tag">nginx</span>
             <span class="tag">Cloudflare Tunnel</span>
-            <span class="tag">Js/HTML</span>
             <span class="tag">Python</span>
+            <img src="assets/fastapi-badge.png?v=20260622-3" alt="FastAPI logo" class="tag-icon" width="80" height="29">
+            <span class="tag">JavaScript / HTML / CSS</span>
+            <span class="tag">C#</span>
+            <span class="tag">C++ / Arduino</span>
+            <span class="tag">PowerShell</span>
+            <span class="tag">VS Code extensions</span>
+            <span class="tag">GitHub Actions</span>
           </div>
         </div>
       </aside>
@@ -117,51 +127,4 @@
     </footer>
 
     
-    <script>
-    // Hamburger Menu
-    document.getElementById('menu-btn').addEventListener('click', () => {
-      document.getElementById('nav-links').classList.toggle('open');
-      document.getElementById('menu-btn').classList.toggle('open');
-    });
-    // GitHub Commits laden
-      const repos = [
-        'JestingDart4369/Python_Panel',
-        'C-Kaenel/Franzoesisch-Quiz',
-        'JestingDart4369/Api_Novaroma-Homelab'
-      ];
- 
-      function commitItem(repo, message) {
-        const item = document.createElement('div');
-        item.className = 'commit-item';
-        const name = document.createElement('p');
-        name.className = 'commit-repo';
-        name.textContent = repo.split('/')[1];
-        const text = document.createElement('p');
-        text.className = 'commit-msg';
-        text.textContent = message;
-        item.appendChild(name);
-        item.appendChild(text);
-        return item;
-      }
-
-      async function loadCommits() {
-        const list = document.getElementById('commit-list');
-        list.innerHTML = '';
- 
-        for (const repo of repos) {
-          try {
-            const res = await fetch(`/github/repos/${repo}/commits?per_page=3`);
-            if (!res.ok) throw new Error();
-            const commits = await res.json();
- 
-            commits.forEach(c => {
-              list.appendChild(commitItem(repo, c.commit.message.split('\n')[0]));
-            });
-          } catch {
-            list.appendChild(commitItem(repo, 'Could not load commits.'));
-          }
-        }
-      }
- 
-      loadCommits();
-  </script>
+    <script src="activity.js"></script>

@@ -73,6 +73,22 @@ class ContentSecurity(unittest.TestCase):
                 for pattern in ['**/.env', '**/.env.*', '**/*.pem', '**/*.key', '**/*.p12', '**/*.pfx']:
                     self.assertIn(pattern, patterns)
 
+    def test_site_data_is_the_single_source_for_stack_projects_tabs_and_proxy(self):
+        result = subprocess.run(['python3', str(ROOT / 'scripts/sync_site.py'), '--check'],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_proxy_allowlist_covers_exactly_the_repos_in_site_data(self):
+        data = json.loads((ROOT / 'app/template/site-data.json').read_text())
+        conf = (ROOT / 'nginx/default.conf').read_text()
+        regex = re.search(r'location ~ \^(/github/repos/.*commits\$) \{', conf).group(1)
+        for repo in data['repos']:
+            self.assertRegex(f'/github/repos/{repo["owner"]}/{repo["name"]}/commits', regex)
+        for blocked in ['/github/repos/JestingDart4369/LegoCity/commits',
+                        '/github/repos/JestingDart4369/Python_Panel/issues',
+                        '/github/repos/other/private/commits']:
+            self.assertNotRegex(blocked, regex)
+
     def test_csp_pins_every_inline_script_including_json_ld(self):
         policy = ROOT / 'nginx/security-headers.conf'
         self.assertTrue(policy.exists(), 'Security-header snippet missing')
